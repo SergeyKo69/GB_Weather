@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">GB_Weather</string>
+    <string name="app_name">Weather</string>
+    <string name="dayOfWeek">Thursday, March 12</string>
+    <string name="moscow">Moscow</string>
+    <string name="codeDegree">℃</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="friday_13">Friday, 13</string>
 </resources>

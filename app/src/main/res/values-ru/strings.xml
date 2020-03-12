@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="dayOfWeek">Четверг, Март 12</string>
+    <string name="moscow">Москва</string>
+    <string name="codeDegree">℃</string>
+    <string name="cloudy">Облачно</string>
+    <string name="friday_13">Пятница, 13</string>
+</resources>
