@@ -11,6 +11,7 @@
         android:id="@+id/imgWeather"
         android:layout_width="213dp"
         android:layout_height="96dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.922"
@@ -23,17 +24,17 @@
         android:id="@+id/dayOfWeek"
         android:layout_width="154dp"
         android:layout_height="17dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="10dp"
         android:text="@string/dayOfWeek"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgWeather"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="@+id/city"
         app:layout_constraintTop_toBottomOf="@+id/city"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.013" />
 
     <TextView
         android:id="@+id/city"
@@ -42,6 +43,7 @@
         android:text="@string/moscow"
         android:textColor="@color/colorWhite"
         android:textSize="35sp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgWeather"
         app:layout_constraintHorizontal_bias="0.675"
@@ -109,7 +111,9 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
                 <TableRow>
 

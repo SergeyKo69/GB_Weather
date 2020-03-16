@@ -5,4 +5,6 @@
     <string name="codeDegree">℃</string>
     <string name="cloudy">Cloudy</string>
     <string name="friday_13">Friday, 13</string>
+    <string name="lblSearchCity">Поиск города</string>
+    <string name="chkAdvParamCity">Отображать давление и скорость ветра</string>
 </resources>
