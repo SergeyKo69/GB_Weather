@@ -53,7 +53,7 @@
         android:id="@+id/txtDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8"
+        android:text="@string/degreesVal"
         android:textColor="@color/colorWhite"
         android:textSize="75sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,9 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
                 <TableRow>
 
@@ -132,8 +134,8 @@
                         android:id="@+id/txtTemperatureDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="6"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/futureDergrVal"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
 
@@ -150,8 +152,8 @@
                         android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="/"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/slashVal"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
 
@@ -159,8 +161,8 @@
                         android:id="@+id/txtTemperatureNight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="2"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/degresssNightVal"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
 
