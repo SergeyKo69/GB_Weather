@@ -15,4 +15,5 @@
     <string name="lblSettings">Настройки</string>
     <string name="settingsNightDay">Светлая/Темная тема</string>
     <string name="fahrenheit">℃/℉</string>
+    <string name="back">Назад</string>
 </resources>
