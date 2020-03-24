@@ -9,31 +9,30 @@
 
     <ImageView
         android:id="@+id/imgWeather"
-        android:layout_width="213dp"
-        android:layout_height="96dp"
+        android:layout_width="172dp"
+        android:layout_height="87dp"
         android:layout_marginEnd="10dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.922"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06"
-        app:srcCompat="@drawable/cloud_sm"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/cloud_sm" />
 
     <TextView
         android:id="@+id/dayOfWeek"
-        android:layout_width="154dp"
-        android:layout_height="17dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="122dp"
+        android:layout_height="20dp"
         android:text="@string/dayOfWeek"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgWeather"
-        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintHorizontal_bias="0.808"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/city"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city"
         app:layout_constraintVertical_bias="0.013" />
 
@@ -43,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="@string/moscow"
         android:textColor="@color/colorWhite"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgWeather"
@@ -113,10 +112,16 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp">
 
                 <TableRow>
+
+                    <ImageView
+                        android:id="@+id/imgWeatherFuture"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/cloud_sm" />
 
                     <TextView
                         android:id="@+id/dayOfWeekFuture"
@@ -126,12 +131,6 @@
                         android:text="@string/friday_13"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/imgWeatherFuture"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@drawable/cloud_sm" />
 
                     <TextView
                         android:id="@+id/txtTemperatureDay"
@@ -193,5 +192,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtWeather" />
+
+    <ImageView
+        android:id="@+id/btnCheckCity"
+        android:layout_width="47dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/checkSettings"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.737"
+        app:srcCompat="@drawable/land_city" />
+
+    <ImageView
+        android:id="@+id/checkSettings"
+        android:layout_width="43dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.738"
+        app:srcCompat="@drawable/settings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

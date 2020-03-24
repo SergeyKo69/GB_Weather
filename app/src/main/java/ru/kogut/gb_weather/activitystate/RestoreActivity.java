@@ -11,12 +11,42 @@ public final class RestoreActivity {
 
     private Integer degree;
 
+    private boolean pressureAndSpeed;
+
+    private boolean setTheme;
+
+    private boolean setDergreeFahrenheit;
+
+    public boolean isSetTheme() {
+        return setTheme;
+    }
+
+    public void setSetTheme(boolean setTheme) {
+        this.setTheme = setTheme;
+    }
+
+    public boolean isSetDergreeFahrenheit() {
+        return setDergreeFahrenheit;
+    }
+
+    public void setSetDergreeFahrenheit(boolean setDergreeFahrenheit) {
+        this.setDergreeFahrenheit = setDergreeFahrenheit;
+    }
+
     public void setDegree(Integer degree) {
         this.degree = degree;
     }
 
     public Integer getDegree() {
         return degree;
+    }
+
+    public boolean getPressureAndSpeed() {
+        return pressureAndSpeed;
+    }
+
+    public void setPressureAndSpeed(boolean pressureAndSpeed) {
+        this.pressureAndSpeed = pressureAndSpeed;
     }
 
     public static RestoreActivity getInstance(){

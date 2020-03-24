@@ -6,6 +6,6 @@ package ru.kogut.gb_weather.service;
 public class WeatherService {
 
     public Integer getDegree() {
-        return 15;
+        return (int) (Math.random()*30);
     }
 }
