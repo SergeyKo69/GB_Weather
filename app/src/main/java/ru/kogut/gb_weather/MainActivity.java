@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         initBtn();
         initDegrees();
         String message;
+        Publisher publisher = Publisher.getInstance();
+        publisher.subscribe(this);
         if (savedInstanceState == null) {
-            Publisher publisher = Publisher.getInstance();
-            publisher.subscribe(this);
             message = "Первый запуск";
         } else {
             message = "Повторный запуск";
@@ -155,11 +155,9 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         if (txtDegrees != null) {
             final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
             txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
-        }
-        txtDegreesLand = findViewById(R.id.txtDegreesLand);
-        if (txtDegreesLand != null) {
-            final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
-            txtDegreesLand.setText(String.valueOf(restoreActivity.getDegree()));
+            if (restoreActivity.getCity() != null) {
+                txtCity.setText(restoreActivity.getCity());
+            }
         }
     }
 
@@ -240,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     }
 
     private void updateCity(String city) {
+        txtCity = findViewById(R.id.city);
         txtCity.setText(city);
     }
 
