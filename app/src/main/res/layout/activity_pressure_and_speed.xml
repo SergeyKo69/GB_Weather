@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorMainDay">
+
+    <TableLayout
+        android:layout_width="139dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtDegrees"
+        app:layout_constraintHorizontal_bias="0.354"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/city">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgPressure"
+                android:layout_width="32dp"
+                android:layout_height="38dp"
+                app:srcCompat="@drawable/pressure"
+                tools:layout_editor_absoluteX="70dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+            <TextView
+                android:id="@+id/pressureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/_775_21" />
+
+            <TextView
+                android:id="@+id/pressureUnit"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@string/lblPressure" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgSpeed"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/wind_speed"
+                tools:layout_editor_absoluteX="143dp"
+                tools:layout_editor_absoluteY="236dp" />
+
+            <TextView
+                android:id="@+id/speedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/valueSpeed" />
+
+            <TextView
+                android:id="@+id/speedUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/speedUnit" />
+        </TableRow>
+    </TableLayout>
+
+</FrameLayout>

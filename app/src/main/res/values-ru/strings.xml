@@ -16,4 +16,8 @@
     <string name="settingsNightDay">Светлая/Темная тема</string>
     <string name="fahrenheit">℃/℉</string>
     <string name="back">Назад</string>
+    <string name="_775_21">775,21</string>
+    <string name="lblPressure">мм рт. ст.</string>
+    <string name="valueSpeed">3</string>
+    <string name="speedUnit">м/с</string>
 </resources>

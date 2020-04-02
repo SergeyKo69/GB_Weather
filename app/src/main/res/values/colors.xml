@@ -6,4 +6,5 @@
     <color name="colorMainDay">#FF82D3FF</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorMainNight">#0976B2</color>
+    <color name="colorSetCity">#A3C3D5</color>
 </resources>

@@ -1,9 +1,21 @@
 package ru.kogut.gb_weather;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import ru.kogut.gb_weather.activitystate.RestoreActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import ru.kogut.gb_weather.activitystate.TemporaryDatas;
+import ru.kogut.gb_weather.adapter.RecyclerDaysDataAdapter;
 import ru.kogut.gb_weather.enumeration.ActivityEnum;
+import ru.kogut.gb_weather.fragment.CityFragment;
+import ru.kogut.gb_weather.fragment.PressureAndSpeedFragment;
+import ru.kogut.gb_weather.fragment.SettingsFragment;
+import ru.kogut.gb_weather.observer.IObserver;
+import ru.kogut.gb_weather.observer.Publisher;
 import ru.kogut.gb_weather.service.WeatherService;
 
 import android.content.Intent;
@@ -16,7 +28,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
+
+public class MainActivity extends AppCompatActivity implements IObserver {
 
     private String TAG = "Life cycle";
 
@@ -24,25 +38,31 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherService weatherService;
 
-    TextView txtCity;
-    TextView txtDegrees;
-    TextView txtDegreesLand;
+    private TextView txtCity;
+    private TextView txtDegrees;
+    private TextView txtDegreesLand;
+    private Fragment pressureAndSpeedFragment;
+    private Fragment cityFragment;
+    private Fragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         initWeatherServivce();
-        final RestoreActivity restoreActivity = RestoreActivity.getInstance();
+        initRecyclerView();
+        final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
         if (restoreActivity.getDegree() == null) {
             restoreActivity.setDegree(weatherService.getDegree());
         }
         initTextLabels();
-        initBtnCity();
-        initBtnSettings();
+        initBtn();
         initDegrees();
         String message;
         if (savedInstanceState == null) {
+            Publisher publisher = Publisher.getInstance();
+            publisher.subscribe(this);
             message = "Первый запуск";
         } else {
             message = "Повторный запуск";
@@ -51,13 +71,50 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, message + " - onCreate()");
     }
 
+    private void initBtn() {
+        initBtnCity();
+        initBtnSettings();
+     }
+
+    private void initView() {
+        updatePressureSpeed();
+    }
+
+    private void initPressureAndSpeed() {
+        if (this.pressureAndSpeedFragment == null) {
+            this.pressureAndSpeedFragment = new PressureAndSpeedFragment();
+        }
+        replaceFragment(R.id.fragment_container_pressure, pressureAndSpeedFragment);
+    }
+
+    private void removeFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void replaceFragment(int idView, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(idView, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void replaceFragmentAndAddBackStack(int idView, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(idView, fragment);
+        fragmentTransaction.addToBackStack("");
+        fragmentTransaction.commit();
+    }
+
     private void initBtnSettings() {
         ImageView btnSettings = findViewById(R.id.checkSettings);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, SettingsFragment.class);
+////                startActivity(intent);
+                settingsFragment = new SettingsFragment();
+                replaceFragmentAndAddBackStack(R.id.fragment_container_settings, settingsFragment);
             }
         });
     }
@@ -80,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
         btnCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,CityActivity.class);
-                intent.putExtra(ActivityEnum.MAIN_ACTIVITY.name(), txtCity.getText());
-                startActivityForResult(intent, REQUEST_CODE);
+//                Intent intent = new Intent(MainActivity.this,CityActivity.class);
+//                intent.putExtra(ActivityEnum.MAIN_ACTIVITY.name(), txtCity.getText());
+//                startActivityForResult(intent, REQUEST_CODE);
+                cityFragment = new CityFragment();
+                replaceFragmentAndAddBackStack(R.id.fragment_container_city, cityFragment);
             }
         });
     }
@@ -94,12 +153,12 @@ public class MainActivity extends AppCompatActivity {
     private void initDegrees() {
         txtDegrees = findViewById(R.id.txtDegrees);
         if (txtDegrees != null) {
-            final RestoreActivity restoreActivity = RestoreActivity.getInstance();
+            final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
             txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
         }
         txtDegreesLand = findViewById(R.id.txtDegreesLand);
         if (txtDegreesLand != null) {
-            final RestoreActivity restoreActivity = RestoreActivity.getInstance();
+            final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
             txtDegreesLand.setText(String.valueOf(restoreActivity.getDegree()));
         }
     }
@@ -134,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        initView();
         super.onResume();
         Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onResume()");
@@ -154,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
@@ -167,19 +232,70 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             assert data != null;
-            txtCity.setText(data.getStringExtra(ActivityEnum.CITY.name()));
-            final RestoreActivity restoreActivity = RestoreActivity.getInstance();
-            if (restoreActivity.getDegree() == null) {
-                restoreActivity.setDegree(weatherService.getDegree());
-            }
-            if (txtDegrees != null) {
-                txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
-            }
-            if (txtDegreesLand != null) {
-                txtDegreesLand.setText(String.valueOf(restoreActivity.getDegree()));
+            updateCity(data.getStringExtra(ActivityEnum.CITY.name()));
+            updateDegrees();
+        }
+    }
+
+    private void updateCity(String city) {
+        txtCity.setText(city);
+    }
+
+    private void updateDegrees() {
+        final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
+        if (restoreActivity.getDegree() == null) {
+            restoreActivity.setDegree(weatherService.getDegree());
+        }
+        if (txtDegrees != null) {
+            txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
+        }
+        if (txtDegreesLand != null) {
+            txtDegreesLand.setText(String.valueOf(restoreActivity.getDegree()));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void update() {
+        final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
+        if (restoreActivity.getCity() != null) {
+            updateCity(restoreActivity.getCity());
+        }
+        updateDegrees();
+        updatePressureSpeed();
+    }
+
+    private void updatePressureSpeed() {
+        final TemporaryDatas value = TemporaryDatas.getInstance();
+        if (value.getPressureAndSpeed()) {
+            initPressureAndSpeed();
+        } else {
+            if (this.pressureAndSpeedFragment != null) {
+                removeFragment(this.pressureAndSpeedFragment);
             }
         }
     }
+
+    private void initRecyclerView() {
+        final String[] listData = weatherService.findDegreesToDays();
+        RecyclerView recyclerView = findViewById(R.id.recyclerToDays);
+        RecyclerDaysDataAdapter adapter = new RecyclerDaysDataAdapter(listData);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,  LinearLayoutManager.HORIZONTAL);
+        itemDecoration.setDrawable(Objects.requireNonNull(getDrawable(R.drawable.separator)));
+        recyclerView.addItemDecoration(itemDecoration);
+   }
 }

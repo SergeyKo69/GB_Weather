@@ -3,9 +3,9 @@ package ru.kogut.gb_weather.activitystate;
 /**
  * Created by Sergey Kogut on 18.03.2020.
  */
-public final class RestoreActivity {
+public final class TemporaryDatas {
 
-    private static RestoreActivity instance = null;
+    private static TemporaryDatas instance = null;
 
     private static final Object syncObj = new Object();
 
@@ -16,6 +16,16 @@ public final class RestoreActivity {
     private boolean setTheme;
 
     private boolean setDergreeFahrenheit;
+
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public boolean isSetTheme() {
         return setTheme;
@@ -49,10 +59,10 @@ public final class RestoreActivity {
         this.pressureAndSpeed = pressureAndSpeed;
     }
 
-    public static RestoreActivity getInstance(){
+    public static TemporaryDatas getInstance(){
         synchronized (syncObj) {
             if (instance == null) {
-                instance = new RestoreActivity();
+                instance = new TemporaryDatas();
             }
             return instance;
         }
