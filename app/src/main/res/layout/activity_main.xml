@@ -9,189 +9,14 @@
 
     <ImageView
         android:id="@+id/imgWeather"
-        android:layout_width="172dp"
-        android:layout_height="87dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="105dp"
+        android:layout_height="69dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="11dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06"
-        app:srcCompat="@drawable/cloud_sm" />
-
-    <TextView
-        android:id="@+id/dayOfWeek"
-        android:layout_width="122dp"
-        android:layout_height="20dp"
-        android:text="@string/dayOfWeek"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgWeather"
-        app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city"
-        app:layout_constraintVertical_bias="0.013" />
-
-    <TextView
-        android:id="@+id/city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/moscow"
-        android:textColor="@color/colorWhite"
-        android:textSize="30sp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgWeather"
-        app:layout_constraintHorizontal_bias="0.675"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
-
-    <TextView
-        android:id="@+id/txtDegrees"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/degreesVal"
-        android:textColor="@color/colorWhite"
-        android:textSize="75sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgWeather" />
-
-    <TextView
-        android:id="@+id/txtTypeDegree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/codeDegree"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txtDegrees"
-        app:layout_constraintTop_toBottomOf="@+id/imgWeather" />
-
-    <TextView
-        android:id="@+id/txtWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/cloudy"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDegrees" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWeather"
-        app:layout_constraintVertical_bias="0.052">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp">
-
-                <TableRow>
-
-                    <ImageView
-                        android:id="@+id/imgWeatherFuture"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@drawable/cloud_sm" />
-
-                    <TextView
-                        android:id="@+id/dayOfWeekFuture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="12dp"
-                        android:text="@string/friday_13"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtTemperatureDay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/futureDergrVal"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-9dp"
-                        android:text="@string/codeDegree"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/slashVal"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtTemperatureNight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/degresssNightVal"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="-9dp"
-                        android:text="@string/codeDegree"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="12sp" />
-                </TableRow>
-            </TableLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="406dp"
-        android:layout_height="4dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="12dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWeather" />
+        app:srcCompat="@drawable/cloud_sm" />
 
     <ImageView
         android:id="@+id/btnCheckCity"
@@ -202,8 +27,6 @@
         app:layout_constraintEnd_toStartOf="@+id/checkSettings"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.737"
         app:srcCompat="@drawable/land_city" />
 
     <ImageView
@@ -213,8 +36,113 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="0.738"
         app:srcCompat="@drawable/settings" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/moscow"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDegrees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/degreesVal"
+        android:textColor="@color/colorWhite"
+        android:textSize="75sp"
+        app:layout_constraintEnd_toStartOf="@+id/imgWeather"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
+
+    <TextView
+        android:id="@+id/txtTypeDegree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="87dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="13dp"
+        android:text="@string/codeDegree"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/dayOfWeekFuture"
+        app:layout_constraintEnd_toStartOf="@+id/imgWeather"
+        app:layout_constraintStart_toEndOf="@+id/txtDegrees"
+        app:layout_constraintTop_toBottomOf="@+id/city" />
+
+    <TextView
+        android:id="@+id/txtWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/cloudy"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgWeather"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/dayOfWeekFuture"
+        android:layout_width="125dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/friday_13"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDegrees" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container_pressure"
+        android:layout_width="151dp"
+        android:layout_height="102dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtDegrees"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/city"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container_city"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerToDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
+            android:orientation="horizontal"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container_settings"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

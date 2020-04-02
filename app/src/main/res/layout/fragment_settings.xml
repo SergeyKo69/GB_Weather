@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,11 +23,11 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="15dp"
         android:text="@string/lblSettings"
-        android:textSize="24sp"
+        android:textSize="@dimen/sp_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +37,9 @@
         android:id="@+id/swTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="105dp"
         android:text="@string/settingsNightDay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -51,8 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fahrenheit"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="145dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/swTheme"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,4 +61,13 @@
         app:layout_constraintTop_toBottomOf="@+id/swTheme"
         app:layout_constraintVertical_bias="0.02" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Switch
+        android:id="@+id/swPressureSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="185dp"
+        android:text="@string/chkAdvParamCity" />
+
+</FrameLayout>
