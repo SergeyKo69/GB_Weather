@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     private TextView txtCity;
     private TextView txtDegrees;
-    private TextView txtDegreesLand;
     private Fragment pressureAndSpeedFragment;
     private Fragment cityFragment;
     private Fragment settingsFragment;
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         initTextLabels();
         initBtn();
         initDegrees();
+        initFragments();
         String message;
         Publisher publisher = Publisher.getInstance();
         publisher.subscribe(this);
@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         Log.d(TAG, message + " - onCreate()");
     }
 
+    private void initFragments() {
+        updatePressureSpeed();
+    }
+
     private void initBtn() {
         initBtnCity();
         initBtnSettings();
@@ -81,9 +85,17 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     }
 
     private void initPressureAndSpeed() {
-        if (this.pressureAndSpeedFragment == null) {
-            this.pressureAndSpeedFragment = new PressureAndSpeedFragment();
+        final TemporaryDatas temporaryDatas = TemporaryDatas.getInstance();
+        if (temporaryDatas.getPressureAndSpeedFragment() != null) {
+            this.pressureAndSpeedFragment = temporaryDatas.getPressureAndSpeedFragment();
+        } else {
+            temporaryDatas.setPressureAndSpeedFragment(new PressureAndSpeedFragment());
+            this.pressureAndSpeedFragment = temporaryDatas.getPressureAndSpeedFragment();
         }
+//        if (this.pressureAndSpeedFragment == null) {
+//            this.pressureAndSpeedFragment = new PressureAndSpeedFragment();
+//        }
+
         replaceFragment(R.id.fragment_container_pressure, pressureAndSpeedFragment);
     }
 
@@ -91,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.remove(fragment);
         fragmentTransaction.commit();
+        this.pressureAndSpeedFragment = null;
     }
 
     private void replaceFragment(int idView, Fragment fragment) {
@@ -250,9 +263,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         if (txtDegrees != null) {
             txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
         }
-        if (txtDegreesLand != null) {
-            txtDegreesLand.setText(String.valueOf(restoreActivity.getDegree()));
-        }
     }
 
     @Override
@@ -276,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     private void updatePressureSpeed() {
         final TemporaryDatas value = TemporaryDatas.getInstance();
-        if (value.getPressureAndSpeed()) {
+        if (value.getPressureAndSpeed() && this.pressureAndSpeedFragment == null) {
             initPressureAndSpeed();
         } else {
             if (this.pressureAndSpeedFragment != null) {

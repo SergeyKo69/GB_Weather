@@ -1,5 +1,7 @@
 package ru.kogut.gb_weather.activitystate;
 
+import androidx.fragment.app.Fragment;
+
 /**
  * Created by Sergey Kogut on 18.03.2020.
  */
@@ -11,6 +13,8 @@ public final class TemporaryDatas {
 
     private Integer degree;
 
+    private Fragment pressureAndSpeedFragment;
+
     private boolean pressureAndSpeed;
 
     private boolean setTheme;
@@ -21,6 +25,14 @@ public final class TemporaryDatas {
 
     public String getCity() {
         return city;
+    }
+
+    public Fragment getPressureAndSpeedFragment() {
+        return pressureAndSpeedFragment;
+    }
+
+    public void setPressureAndSpeedFragment(Fragment pressureAndSpeedFragment) {
+        this.pressureAndSpeedFragment = pressureAndSpeedFragment;
     }
 
     public void setCity(String city) {
