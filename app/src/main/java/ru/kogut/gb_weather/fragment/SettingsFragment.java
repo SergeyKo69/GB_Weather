@@ -16,14 +16,17 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import java.util.Objects;
 
 public class SettingsFragment extends Fragment {
 
-    private Switch swTheme;
-    private Switch swDergreeFahrenheit;
-    private Switch swPressureSpeed;
-    private ImageView btnBack;
+    private SwitchMaterial swTheme;
+    private SwitchMaterial swDergreeFahrenheit;
+    private SwitchMaterial swPressureSpeed;
+    private MaterialButton btnBack;
 
     @Nullable
     @Override

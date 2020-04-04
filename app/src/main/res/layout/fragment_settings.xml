@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorMainDay">
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
         android:layout_width="45dp"
         android:layout_height="33dp"
@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:icon="@drawable/back"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
     <TextView
         android:id="@+id/textView"
@@ -33,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,12 +47,12 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swDergreeFahrenheit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fahrenheit"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="155dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,13 +62,13 @@
         app:layout_constraintTop_toBottomOf="@+id/swTheme"
         app:layout_constraintVertical_bias="0.02" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swPressureSpeed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="185dp"
+        android:layout_marginTop="205dp"
         android:text="@string/chkAdvParamCity" />
 
 </FrameLayout>

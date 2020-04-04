@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Objects;
 
 import androidx.fragment.app.FragmentManager;
@@ -40,7 +43,7 @@ public class CityFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ImageView btnBackCity = view.findViewById(R.id.backCity);
+        final MaterialButton btnBackCity = view.findViewById(R.id.backCity);
         this.weatherService = new WeatherService();
         this.publisher = Publisher.getInstance();
         this.temporaryDatas = TemporaryDatas.getInstance();
@@ -73,6 +76,9 @@ public class CityFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 String city = ((TextView) view).getText().toString();
+                Snackbar.make(view, "Выбран горд: " + city, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
                 temporaryDatas.setCity(city);
                 publisher.notifyMain();
                 onBack();

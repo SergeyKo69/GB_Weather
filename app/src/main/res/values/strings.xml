@@ -19,5 +19,8 @@
     <string name="lblPressure">мм рт. ст.</string>
     <string name="valueSpeed">3</string>
     <string name="speedUnit">м/с</string>
+    <string name="findCity">Поиск города</string>
+    <string name="exchange_city">Изменить горд</string>
+    <string name="settings">Настройки</string>
 
 </resources>
