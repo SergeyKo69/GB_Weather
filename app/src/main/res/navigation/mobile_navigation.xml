@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_city">
+
+    <fragment
+        android:id="@+id/navigation_city"
+        android:name="ru.kogut.gb_weather.fragment.CityFragment"
+        android:label="@string/exchange_city"
+        tools:layout="@layout/fragment_city" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="ru.kogut.gb_weather.fragment.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

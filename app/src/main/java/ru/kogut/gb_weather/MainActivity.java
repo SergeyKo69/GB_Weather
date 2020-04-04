@@ -5,6 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +32,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements IObserver {
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     private Fragment pressureAndSpeedFragment;
     private Fragment cityFragment;
     private Fragment settingsFragment;
+    private BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         initDegrees();
         initFragments();
         String message;
-        Publisher publisher = Publisher.getInstance();
-        publisher.subscribe(this);
         if (savedInstanceState == null) {
             message = "Первый запуск";
         } else {
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         Toast.makeText(getApplicationContext(), message + " - onCreate()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, message + " - onCreate()");
     }
+
 
     private void initFragments() {
         updatePressureSpeed();
@@ -85,17 +92,9 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     }
 
     private void initPressureAndSpeed() {
-        final TemporaryDatas temporaryDatas = TemporaryDatas.getInstance();
-        if (temporaryDatas.getPressureAndSpeedFragment() != null) {
-            this.pressureAndSpeedFragment = temporaryDatas.getPressureAndSpeedFragment();
-        } else {
-            temporaryDatas.setPressureAndSpeedFragment(new PressureAndSpeedFragment());
-            this.pressureAndSpeedFragment = temporaryDatas.getPressureAndSpeedFragment();
+        if (this.pressureAndSpeedFragment == null) {
+            this.pressureAndSpeedFragment = new PressureAndSpeedFragment();
         }
-//        if (this.pressureAndSpeedFragment == null) {
-//            this.pressureAndSpeedFragment = new PressureAndSpeedFragment();
-//        }
-
         replaceFragment(R.id.fragment_container_pressure, pressureAndSpeedFragment);
     }
 
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     }
 
     private void initBtnSettings() {
-        ImageView btnSettings = findViewById(R.id.checkSettings);
+        MaterialButton btnSettings = findViewById(R.id.checkSettings);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 ////                startActivity(intent);
                 settingsFragment = new SettingsFragment();
                 replaceFragmentAndAddBackStack(R.id.fragment_container_settings, settingsFragment);
+                Publisher publisher = Publisher.getInstance();
+                publisher.subscribe(MainActivity.this);
             }
         });
     }
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     }
 
     public void initBtnCity() {
-        ImageView btnCity = findViewById(R.id.btnCheckCity);
+        MaterialButton btnCity = findViewById(R.id.btnCheckCity);
         btnCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 //                startActivityForResult(intent, REQUEST_CODE);
                 cityFragment = new CityFragment();
                 replaceFragmentAndAddBackStack(R.id.fragment_container_city, cityFragment);
+                Publisher publisher = Publisher.getInstance();
+                publisher.subscribe(MainActivity.this);
             }
         });
     }
@@ -282,6 +285,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         }
         updateDegrees();
         updatePressureSpeed();
+        Publisher publisher = Publisher.getInstance();
+        publisher.unsubscribe(this);
     }
 
     private void updatePressureSpeed() {
