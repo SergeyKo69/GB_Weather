@@ -27,6 +27,10 @@ public class Publisher {
         observers.remove(observer);
     }
 
+    public void unsubscribeAll() {
+        observers.clear();
+    }
+
     // Разослать событие
     public void notifyMain() {
         for (IObserver observer : observers) {

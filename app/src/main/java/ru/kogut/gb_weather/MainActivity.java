@@ -2,13 +2,10 @@ package ru.kogut.gb_weather;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,30 +15,31 @@ import ru.kogut.gb_weather.enumeration.ActivityEnum;
 import ru.kogut.gb_weather.fragment.CityFragment;
 import ru.kogut.gb_weather.fragment.PressureAndSpeedFragment;
 import ru.kogut.gb_weather.fragment.SettingsFragment;
+import ru.kogut.gb_weather.interfaces.UpdateValuesInt;
 import ru.kogut.gb_weather.observer.IObserver;
 import ru.kogut.gb_weather.observer.Publisher;
 import ru.kogut.gb_weather.service.WeatherService;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements IObserver {
+public class MainActivity extends AppCompatActivity implements IObserver, UpdateValuesInt {
 
     private String TAG = "Life cycle";
 
     private final static int REQUEST_CODE = 1;
+    private final String CITY_DEFAULT = "Moscow";
 
     private WeatherService weatherService;
 
@@ -50,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     private Fragment pressureAndSpeedFragment;
     private Fragment cityFragment;
     private Fragment settingsFragment;
-    private BottomNavigationView bottomNavigation;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +59,10 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         initRecyclerView();
         final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
         if (restoreActivity.getDegree() == null) {
-            restoreActivity.setDegree(weatherService.getDegree());
+            if (restoreActivity.getCity() == null) {
+                restoreActivity.setCity(CITY_DEFAULT);
+            }
+            weatherService.getDegree(restoreActivity.getCity(), getAssets(),this);
         }
         initTextLabels();
         initBtn();
@@ -120,45 +121,31 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     private void initBtnSettings() {
         MaterialButton btnSettings = findViewById(R.id.checkSettings);
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SettingsFragment.class);
-////                startActivity(intent);
-                settingsFragment = new SettingsFragment();
-                replaceFragmentAndAddBackStack(R.id.fragment_container_settings, settingsFragment);
-                Publisher publisher = Publisher.getInstance();
-                publisher.subscribe(MainActivity.this);
-            }
+        btnSettings.setOnClickListener(view -> {
+            settingsFragment = new SettingsFragment();
+            replaceFragmentAndAddBackStack(R.id.fragment_container_settings, settingsFragment);
+            Publisher publisher = Publisher.getInstance();
+            publisher.subscribe(MainActivity.this);
         });
     }
 
     private void initTextLabels() {
         txtCity = findViewById(R.id.city);
-        txtCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String uriStr = String.format("https://ru.wikipedia.org/wiki/%s", txtCity.getText().toString());
-                Uri uri = Uri.parse(uriStr);
-                Intent runEchoIntent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(runEchoIntent);
-            }
+        txtCity.setOnClickListener(view -> {
+            String uriStr = String.format("https://ru.wikipedia.org/wiki/%s", txtCity.getText().toString());
+            Uri uri = Uri.parse(uriStr);
+            Intent runEchoIntent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(runEchoIntent);
         });
     }
 
     public void initBtnCity() {
         MaterialButton btnCity = findViewById(R.id.btnCheckCity);
-        btnCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this,CityActivity.class);
-//                intent.putExtra(ActivityEnum.MAIN_ACTIVITY.name(), txtCity.getText());
-//                startActivityForResult(intent, REQUEST_CODE);
-                cityFragment = new CityFragment();
-                replaceFragmentAndAddBackStack(R.id.fragment_container_city, cityFragment);
-                Publisher publisher = Publisher.getInstance();
-                publisher.subscribe(MainActivity.this);
-            }
+        btnCity.setOnClickListener(view -> {
+            cityFragment = new CityFragment();
+            replaceFragmentAndAddBackStack(R.id.fragment_container_city, cityFragment);
+            Publisher publisher = Publisher.getInstance();
+            publisher.subscribe(MainActivity.this);
         });
     }
 
@@ -166,11 +153,16 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         weatherService = new WeatherService();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initDegrees() {
         txtDegrees = findViewById(R.id.txtDegrees);
         if (txtDegrees != null) {
             final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
-            txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
+            if (restoreActivity.getDegree() ==  null) {
+                weatherService.getDegree(restoreActivity.getCity(), getAssets(), this);
+            } else {
+                txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
+            }
             if (restoreActivity.getCity() != null) {
                 txtCity.setText(restoreActivity.getCity());
             }
@@ -239,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         Log.d(TAG, "onSaveInstanceState()");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode != REQUEST_CODE) {
@@ -258,13 +251,15 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         txtCity.setText(city);
     }
 
-    private void updateDegrees() {
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateDegrees() {
         final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
-        if (restoreActivity.getDegree() == null) {
-            restoreActivity.setDegree(weatherService.getDegree());
-        }
         if (txtDegrees != null) {
             txtDegrees.setText(String.valueOf(restoreActivity.getDegree()));
+            if (txtDegrees.getText().equals("-999")) {
+                Toast.makeText(getApplicationContext(), "Ошибка получения данных о погоде", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -277,13 +272,14 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void update() {
         final TemporaryDatas restoreActivity = TemporaryDatas.getInstance();
         if (restoreActivity.getCity() != null) {
             updateCity(restoreActivity.getCity());
         }
-        updateDegrees();
+        weatherService.getDegree(restoreActivity.getCity(), getAssets(), this);
         updatePressureSpeed();
         Publisher publisher = Publisher.getInstance();
         publisher.unsubscribe(this);

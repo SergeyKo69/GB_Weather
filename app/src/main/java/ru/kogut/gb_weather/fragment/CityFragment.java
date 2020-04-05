@@ -1,9 +1,11 @@
 package ru.kogut.gb_weather.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -65,8 +67,9 @@ public class CityFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initRecyclerView(View view) {
-        final String[] listData = weatherService.findAllCities();
+        final String[] listData = weatherService.findAllCities(getActivity().getAssets());
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerCityDataAdapter adapter = new RecyclerCityDataAdapter(listData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());

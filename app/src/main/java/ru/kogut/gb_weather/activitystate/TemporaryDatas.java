@@ -11,7 +11,7 @@ public final class TemporaryDatas {
 
     private static final Object syncObj = new Object();
 
-    private Integer degree;
+    private Double degree;
 
     private Fragment pressureAndSpeedFragment;
 
@@ -55,11 +55,11 @@ public final class TemporaryDatas {
         this.setDergreeFahrenheit = setDergreeFahrenheit;
     }
 
-    public void setDegree(Integer degree) {
+    public void setDegree(Double degree) {
         this.degree = degree;
     }
 
-    public Integer getDegree() {
+    public Double getDegree() {
         return degree;
     }
 
