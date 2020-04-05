@@ -1,5 +1,12 @@
 package ru.kogut.gb_weather.service;
 
+import android.content.res.AssetManager;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+import ru.kogut.gb_weather.controller.CityController;
+import ru.kogut.gb_weather.controller.WeatherController;
+import ru.kogut.gb_weather.interfaces.UpdateValuesInt;
 import ru.kogut.gb_weather.repository.WeatherRepository;
 
 /**
@@ -8,17 +15,23 @@ import ru.kogut.gb_weather.repository.WeatherRepository;
 public class WeatherService {
 
     private WeatherRepository weatherRepository;
+    private CityController cityController;
+    private WeatherController weatherController;
 
     public WeatherService() {
         this.weatherRepository = new WeatherRepository();
+        this.cityController = new CityController();
+        this.weatherController = new WeatherController();
     }
 
-    public Integer getDegree() {
-        return weatherRepository.findDegree();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public double getDegree(String city, AssetManager assetManager, UpdateValuesInt updateValues) {
+        return weatherController.findDegreeToCity(city, assetManager, updateValues);
     }
 
-    public String[] findAllCities() {
-        return weatherRepository.findAllCities();
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public String[] findAllCities(AssetManager assetManager) {
+        return cityController.getAllCityJSON(assetManager);
     }
 
     public  String[] findDegreesToDays() {
